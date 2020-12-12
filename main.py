@@ -70,16 +70,13 @@ except:
 
         training.append(bag)
         output.append(output_row)
-    
-    # print('training:', training)
+
     training = np.array(training)
-    # print('array:', training)
     output = np.array(output)
 
     with open("data.pickle", "wb") as f:
         pickle.dump((words, labels, training, output), f)    
 
-"""
 tf.compat.v1.reset_default_graph()
 
 net = tflearn.input_data(shape=[None, len(training[0])])
@@ -89,11 +86,12 @@ net = tflearn.fully_connected(net, len(output[0]), activation="softmax")
 net = tflearn.regression(net)
 
 model = tflearn.DNN(net)
-"""
 
 try:
     model.load("model.tflearn")
+    print("LOADED")
 except:
+    """
     tf.compat.v1.reset_default_graph()
 
     net = tflearn.input_data(shape=[None, len(training[0])])
@@ -103,6 +101,7 @@ except:
     net = tflearn.regression(net)
 
     model = tflearn.DNN(net)
+    """
 
     model.fit(training, output, n_epoch=1000, batch_size=8, show_metric=True)
     model.save("model.tflearn")
@@ -121,24 +120,33 @@ def bag_of_words(s, words):
                 bag[i] = 1
     return np.array(bag)
 
-def chat():
+def chat(msg):
     print("What la brother??")
-    while True:
-        inp = input("You: ")
-        if inp.lower() == "quit":
-            break
-    
-        results = model.predict([bag_of_words(inp, words)])[0]
-        print(results)
-        results_index = np.argmax(results)
-        tag = labels[results_index]
 
-        if results[results_index] > 0.7:
-            for tg in data["intents"]:
-                if tg["tag"] == tag:
-                    responses = tg['responses']
-            print(random.choice(responses))
-        else: 
-            print("Sorry, I did not quite get that")
+    results = model.predict([bag_of_words(msg, words)])[0]
+    results_index = np.argmax(results)
+    results_list = results.tolist()
+    probability = results.tolist()[results_index]
+
+    tag = labels[results_index]
+
+    if results[results_index] > 0.7:
+        for tg in data["intents"]:
+            if tg["tag"] == tag:
+                responses = tg['responses']
+
+        return {
+            "reply": random.choice(responses),
+            "results": results_list,
+            "probability": probability
+            }
+    else: 
+        return {
+            "reply": "Sorry I did not quite get that",
+            "results": results_list,
+            "probability": probability
+            }
+
+def send(msg):
+    return ("here you go" + msg)
         
-chat()

@@ -1,11 +1,18 @@
 import React from 'react'
-import ChatMessage from './ChatMessage'
+import BotMessage from './BotMessage'
+import UserMessage from './UserMessage'
 
 export default function ChatMessageList({chatMessages}) {
 
     return chatMessages.map(
         chatMessage => {
-            return <ChatMessage chatMessage={chatMessage} />
+            if (chatMessage.from === "user") {
+                return <UserMessage chatMessage={chatMessage} />
+            }
+
+            // else chatbot
+            return <BotMessage chatMessage={chatMessage} />
+
         }
     )
 }

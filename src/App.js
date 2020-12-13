@@ -71,11 +71,30 @@ function App() {
 
 	}
 
+	const appStyle = {
+		marginLeft: "30%",
+		marginRight: "30%",
+	}
+
+	const chatStyle = {
+		marginTop: "5%",
+		height: "400px", 
+		padding: "10px",
+		display: "block",
+		overflow:"scroll",
+		backgroundColor: "#878CD6"
+	}
+
+	// Visual Layout
 	return (
-		<div className="App">
-			<ChatMessageList chatMessages={chatMessages}/>
-			<input ref={messageToSendRef} type="text"/>
-			<button onClick={handleChatFunction}>Chat</button>
+		<div className="App" style={appStyle}>
+			<div style={chatStyle}>
+				<ChatMessageList chatMessages={chatMessages}/>
+			</div>
+			<div>
+				<input ref={messageToSendRef} type="text"/>
+				<button onClick={handleChatFunction}>Chat</button>
+			</div>
 		</div>
 	);
 }

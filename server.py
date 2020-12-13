@@ -2,12 +2,16 @@ from flask import Flask, request
 from flask_cors import CORS, cross_origin
 import main
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='build', static_url_path='')
 CORS(app)
 
 @app.route('/')
-def hello_world():
-    return 'Hello, World!'
+def index():
+    return app.send_static_file('index.html') 
+
+@app.route('/health')
+def health_check():
+    return 'ok'
 
 @app.route('/chat', methods=["GET", "POST"])
 def chat():

@@ -4,7 +4,7 @@ import ChatMessageList from './chat/ChatMessageList'
 import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080"
+const BASE_URL = "https://chatboy2020.herokuapp.com"
 
 let postChatRequest = (message) => {
 

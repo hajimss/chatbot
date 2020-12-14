@@ -1,4 +1,6 @@
 import nltk
+# nltk.download('punkt')
+
 from nltk.stem.lancaster import LancasterStemmer
 # Stemming is used to remove the 'unnecessary' parts of the word
 # Lancaster Stemming is a type of stemming (others are Porter and Snowball)

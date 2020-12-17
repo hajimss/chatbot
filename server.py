@@ -18,7 +18,7 @@ def chat():
     if request.method == "GET":
         return "Nothing"
     if request.method == "POST":
-        if content not in request.form:
+        if "content" not in request.form:
             return {"reply": ""}
         words = request.form["content"]
         response = main.chat(words)

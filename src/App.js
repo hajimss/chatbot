@@ -2,34 +2,7 @@ import './App.css';
 import React, { useState , useRef } from 'react';
 import ChatMessageList from './chat/ChatMessageList'
 import { v4 as uuidv4 } from 'uuid';
-import axios from "axios";
-
-const BASE_URL = "https://chatboy2020.herokuapp.com"
-
-let postChatRequest = (message) => {
-
-	let bodyFormData = new FormData();
-	bodyFormData.append('content', message);
-
-    return new Promise((resolve, reject) => {
-        axios({
-			method: "post",
-			url: BASE_URL + "/chat",
-			data: bodyFormData,
-			headers: {'Content-Type': 'multipart/form-data' }
-		})
-		.then(res => {
-			resolve(res.data);
-		})
-		.catch(err => {
-				reject({
-					stat: 500,
-					msg:
-						"There was an error processing your request. Please, try again later."
-				});
-		});
-    });
-} 
+import postChatRequest from './chatRequest'
 
 function App() {
 
@@ -38,6 +11,12 @@ function App() {
 	])
 
 	const messageToSendRef = useRef()
+
+	function handleEnter(e){
+		if (e.key === 'Enter') {
+			handleChatFunction(e)
+		}
+	}
 
 	function handleChatFunction(e) {
 		console.log("[handleChatFunction]")
@@ -72,17 +51,33 @@ function App() {
 	}
 
 	const appStyle = {
-		marginLeft: "30%",
-		marginRight: "30%",
+		marginLeft: "20%",
+		marginRight: "20%",
 	}
 
 	const chatStyle = {
 		marginTop: "5%",
-		height: "400px", 
+		paddingTop: "30px",
+		height: "600px", 
 		padding: "10px",
 		display: "block",
 		overflow:"scroll",
 		backgroundColor: "#878CD6"
+	}
+
+	const inputStyle = {
+		border: "none",
+		height: "50px",
+		width: "80%",
+		outline:"none",
+		fontSize: "30px"
+	}
+
+	const buttonStyle = {
+		height: "50px",
+		width: "20%",
+		outline:"none",
+		fontSize: "30px"
 	}
 
 	// Visual Layout
@@ -92,8 +87,11 @@ function App() {
 				<ChatMessageList chatMessages={chatMessages}/>
 			</div>
 			<div>
-				<input ref={messageToSendRef} type="text"/>
-				<button onClick={handleChatFunction}>Chat</button>
+				<input 
+					style={inputStyle} ref={messageToSendRef} type="text" placeholder="Chat with me!" autoFocus 
+					onKeyDown={handleEnter}
+				/>
+				<button style={buttonStyle} onClick={handleChatFunction}>Chat</button>
 			</div>
 		</div>
 	);

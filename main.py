@@ -1,6 +1,4 @@
 import nltk
-# nltk.download('punkt')
-
 from nltk.stem.lancaster import LancasterStemmer
 # Stemming is used to remove the 'unnecessary' parts of the word
 # Lancaster Stemming is a type of stemming (others are Porter and Snowball)
@@ -122,8 +120,6 @@ def bag_of_words(s, words):
     return np.array(bag)
 
 def chat(msg):
-    print("What la brother??")
-
     results = model.predict([bag_of_words(msg, words)])[0]
     results_index = np.argmax(results)
     results_list = results.tolist()
@@ -147,6 +143,3 @@ def chat(msg):
             "results": results_list,
             "probability": probability
             }
-
-def send(msg):
-    return ("here you go" + msg)

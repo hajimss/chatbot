@@ -6,19 +6,21 @@ import robotHappyOutline from '@iconify-icons/mdi/robot-happy-outline';
 export default function BotMessage({chatMessage}) {
 
     const style = {
-        height: "40px",
+        paddingTop: "10px",
+        paddingBottom: "10px"
     }
 
     const blockStyle = {
         display: "inline-block",
         marginLeft: "10px",
-        padding: "5px",
-        borderRadius: "15px"
+        padding: "15px",
+        borderRadius: "25px"
     }
 
     const messageStyle = {
         backgroundColor: "#1F3472",
-        color: "white"
+        color: "white",
+        fontSize: "30px"
     }
 
     const icon = {
@@ -29,8 +31,7 @@ export default function BotMessage({chatMessage}) {
     }
 
     return (
-        <div key={chatMessage.id}>
-            <div className={chatMessage.from} style={style}>
+            <div key={chatMessage.id} className={chatMessage.from} style={style}>
                 <div>
                     <p style={{...blockStyle, ...icon}}>
                         <Icon icon={robotHappyOutline} />
@@ -38,6 +39,5 @@ export default function BotMessage({chatMessage}) {
                     <p style={{...blockStyle, ...messageStyle}}>{chatMessage.message}</p>
                 </div>
             </div>
-        </div>
     )   
 }

@@ -6,20 +6,22 @@ import boyLightSkinTone from '@iconify-icons/emojione/boy-light-skin-tone';
 export default function UserMessage({chatMessage}) {
 
     const style = {
-        height: "40px",
-        textAlign: "right"
+        textAlign: "right",
+        paddingTop: "10px",
+        paddingBottom: "10px"
     }
 
     const blockStyle = {
         display: "inline-block",
         marginLeft: "10px",
-        padding: "5px",
-        borderRadius: "15px"
+        padding: "15px",
+        borderRadius: "25px"
     }
 
     const messageStyle = {
         backgroundColor: "#44486F",
-        color: "white"
+        color: "white",
+        fontSize: "30px"
     }
 
     const icon = {
@@ -31,8 +33,7 @@ export default function UserMessage({chatMessage}) {
 
 
     return (
-        <div key={chatMessage.id}>
-            <div className={chatMessage.from} style={style}>
+            <div key={chatMessage.id} className={chatMessage.from} style={style}>
                 <div>
                     <p style={{...blockStyle, ...messageStyle}}>{chatMessage.message}</p>
                     <p style={{...blockStyle, ...icon}}>
@@ -40,6 +41,5 @@ export default function UserMessage({chatMessage}) {
                     </p>
                 </div>
             </div>
-        </div>
     )   
 }

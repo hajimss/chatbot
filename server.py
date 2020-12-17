@@ -25,12 +25,5 @@ def chat():
         # response is a JSON of reply, results(list of prob of all the tags) and probability (prob of the highest)
         return response
 
-def init():
-
-    import os, nltk
-    if "ENV" in os.environ and os.environ["ENV"] == "PROD":
-        nltk.download('punkt')
-
 if __name__ == '__main__':
-    init()
     app.run(port=8080, debug=True)
